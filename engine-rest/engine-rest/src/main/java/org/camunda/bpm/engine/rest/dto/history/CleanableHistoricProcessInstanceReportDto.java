@@ -14,14 +14,14 @@
 package org.camunda.bpm.engine.rest.dto.history;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.history.HistoricFinishedProcessInstanceReport;
-import org.camunda.bpm.engine.history.HistoricFinishedProcessInstanceReportResult;
+import org.camunda.bpm.engine.history.CleanableHistoricProcessInstanceReport;
+import org.camunda.bpm.engine.history.CleanableHistoricProcessInstanceReportResult;
 
-public class HistoricFinishedProcessInstanceReportDto implements Serializable {
+public class CleanableHistoricProcessInstanceReportDto implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class HistoricFinishedProcessInstanceReportDto implements Serializable {
   protected long finishedProcessInstancesCount;
   protected long cleanableProcessInstancesCount;
 
-  public HistoricFinishedProcessInstanceReportDto() {
+  public CleanableHistoricProcessInstanceReportDto() {
   }
 
   public void setProcessDefinitionId(String processDefinitionId) {
@@ -92,14 +92,14 @@ public class HistoricFinishedProcessInstanceReportDto implements Serializable {
     return cleanableProcessInstancesCount;
   }
 
-  protected HistoricFinishedProcessInstanceReport createNewReportQuery(ProcessEngine engine) {
-    return engine.getHistoryService().createHistoricFinishedProcessInstanceReport();
+  protected CleanableHistoricProcessInstanceReport createNewReportQuery(ProcessEngine engine) {
+    return engine.getHistoryService().createCleanableHistoricProcessInstanceReport();
   }
 
-  public static List<HistoricFinishedProcessInstanceReportDto> convert(List<HistoricFinishedProcessInstanceReportResult> reportResult) {
-    List<HistoricFinishedProcessInstanceReportDto> dtos = new LinkedList<HistoricFinishedProcessInstanceReportDto>();
-    for (HistoricFinishedProcessInstanceReportResult current : reportResult) {
-      HistoricFinishedProcessInstanceReportDto dto = new HistoricFinishedProcessInstanceReportDto();
+  public static List<CleanableHistoricProcessInstanceReportDto> convert(List<CleanableHistoricProcessInstanceReportResult> reportResult) {
+    List<CleanableHistoricProcessInstanceReportDto> dtos = new ArrayList<CleanableHistoricProcessInstanceReportDto>();
+    for (CleanableHistoricProcessInstanceReportResult current : reportResult) {
+      CleanableHistoricProcessInstanceReportDto dto = new CleanableHistoricProcessInstanceReportDto();
       dto.setProcessDefinitionId(current.getProcessDefinitionId());
       dto.setProcessDefinitionKey(current.getProcessDefinitionKey());
       dto.setProcessDefinitionName(current.getProcessDefinitionName());

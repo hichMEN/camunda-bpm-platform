@@ -14,11 +14,11 @@ package org.camunda.bpm.engine.rest.impl.history;
 
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.history.HistoricFinishedProcessInstanceReportResult;
+import org.camunda.bpm.engine.history.CleanableHistoricProcessInstanceReportResult;
 import org.camunda.bpm.engine.history.HistoricActivityStatistics;
 import org.camunda.bpm.engine.history.HistoricActivityStatisticsQuery;
 import org.camunda.bpm.engine.rest.dto.history.HistoricActivityStatisticsDto;
-import org.camunda.bpm.engine.rest.dto.history.HistoricFinishedProcessInstanceReportDto;
+import org.camunda.bpm.engine.rest.dto.history.CleanableHistoricProcessInstanceReportDto;
 import org.camunda.bpm.engine.rest.exception.InvalidRequestException;
 import org.camunda.bpm.engine.rest.history.HistoricProcessDefinitionRestService;
 
@@ -95,11 +95,11 @@ public class HistoricProcessDefinitionRestServiceImpl implements HistoricProcess
   }
 
   @Override
-  public List<HistoricFinishedProcessInstanceReportDto> getHistoricFinishedProcessInstanceReport() {
+  public List<CleanableHistoricProcessInstanceReportDto> getHistoricFinishedProcessInstanceReport() {
     HistoryService historyService = processEngine.getHistoryService();
 
-    List<HistoricFinishedProcessInstanceReportResult> reportResult = historyService.createHistoricFinishedProcessInstanceReport().list();
-    return HistoricFinishedProcessInstanceReportDto.convert(reportResult);
+    List<CleanableHistoricProcessInstanceReportResult> reportResult = historyService.createCleanableHistoricProcessInstanceReport().list();
+    return CleanableHistoricProcessInstanceReportDto.convert(reportResult);
   }
 
 }

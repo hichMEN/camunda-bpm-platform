@@ -15,26 +15,27 @@ package org.camunda.bpm.engine.impl;
 
 import java.util.List;
 
-import org.camunda.bpm.engine.history.HistoricFinishedProcessInstanceReportResult;
-import org.camunda.bpm.engine.history.HistoricFinishedProcessInstanceReport;
+import org.camunda.bpm.engine.history.CleanableHistoricCaseInstanceReport;
+import org.camunda.bpm.engine.history.CleanableHistoricCaseInstanceReportResult;
 import org.camunda.bpm.engine.impl.interceptor.Command;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 
-public class HistoricFinishedProcessInstanceReportImpl implements HistoricFinishedProcessInstanceReport {
+public class CleanableHistoricCaseInstanceReportImpl implements CleanableHistoricCaseInstanceReport {
 
   protected CommandExecutor commandExecutor;
 
-  public HistoricFinishedProcessInstanceReportImpl(CommandExecutor commandExecutor) {
+  public CleanableHistoricCaseInstanceReportImpl(CommandExecutor commandExecutor) {
     this.commandExecutor = commandExecutor;
   }
 
   @Override
-  public List<HistoricFinishedProcessInstanceReportResult> list() {
-    return commandExecutor.execute(new Command<List<HistoricFinishedProcessInstanceReportResult>>() {
+  public List<CleanableHistoricCaseInstanceReportResult> list() {
+
+    return commandExecutor.execute(new Command<List<CleanableHistoricCaseInstanceReportResult>>() {
       @Override
-      public List<HistoricFinishedProcessInstanceReportResult> execute(CommandContext commandContext) {
-        return commandContext.getHistoricProcessInstanceManager().findFinishedProcessInstancesReportResults();
+      public List<CleanableHistoricCaseInstanceReportResult> execute(CommandContext commandContext) {
+        return commandContext.getHistoricCaseInstanceManager().findHistoricFinishedCaseInstanceReportResults();
       }
     });
   }

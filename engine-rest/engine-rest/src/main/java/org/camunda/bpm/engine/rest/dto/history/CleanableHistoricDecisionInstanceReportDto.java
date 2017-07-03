@@ -11,11 +11,17 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.engine.impl.persistence.entity;
+package org.camunda.bpm.engine.rest.dto.history;
 
-import org.camunda.bpm.engine.history.HistoricFinishedDecisionInstanceReportResult;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class HistoricFinishedDecisionInstanceReportResultEntity implements HistoricFinishedDecisionInstanceReportResult {
+import org.camunda.bpm.engine.history.CleanableHistoricDecisionInstanceReportResult;
+
+public class CleanableHistoricDecisionInstanceReportDto implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   protected String decisionDefinitionId;
   protected String decisionDefinitionKey;
@@ -69,7 +75,7 @@ public class HistoricFinishedDecisionInstanceReportResultEntity implements Histo
     return finishedDecisionInstanceCount;
   }
 
-  public void setFinishedDecisionInstanceCount(long finishedDecisionInstanceCount) {
+  public void setFinishedDecisionInstanceCount(Long finishedDecisionInstanceCount) {
     this.finishedDecisionInstanceCount = finishedDecisionInstanceCount;
   }
 
@@ -77,20 +83,23 @@ public class HistoricFinishedDecisionInstanceReportResultEntity implements Histo
     return cleanableDecisionInstanceCount;
   }
 
-  public void setCleanableDecisionInstanceCount(long cleanableDecisionInstanceCount) {
+  public void setCleanableDecisionInstanceCount(Long cleanableDecisionInstanceCount) {
     this.cleanableDecisionInstanceCount = cleanableDecisionInstanceCount;
   }
 
-  public String toString() {
-    return this.getClass().getSimpleName()
-        + "[decisionDefinitionId = " + decisionDefinitionId
-        + ", decisionDefinitionKey = " + decisionDefinitionKey
-        + ", decisionDefinitionName = " + decisionDefinitionName
-        + ", decisionDefinitionVersion = " + decisionDefinitionVersion
-        + ", historyTimeToLive = " + historyTimeToLive
-        + ", finishedDecisionInstanceCount = " + finishedDecisionInstanceCount
-        + ", cleanableDecisionInstanceCount = " + cleanableDecisionInstanceCount
-        + "]";
+  public static List<CleanableHistoricDecisionInstanceReportDto> convert(List<CleanableHistoricDecisionInstanceReportResult> reportResult) {
+    List<CleanableHistoricDecisionInstanceReportDto> dtos = new ArrayList<CleanableHistoricDecisionInstanceReportDto>();
+    for (CleanableHistoricDecisionInstanceReportResult current : reportResult) {
+      CleanableHistoricDecisionInstanceReportDto dto = new CleanableHistoricDecisionInstanceReportDto();
+      dto.setDecisionDefinitionId(current.getDecisionDefinitionId());
+      dto.setDecisionDefinitionKey(current.getDecisionDefinitionKey());
+      dto.setDecisionDefinitionName(current.getDecisionDefinitionName());
+      dto.setDecisionDefinitionVersion(current.getDecisionDefinitionVersion());
+      dto.setHistoryTimeToLive(current.getHistoryTimeToLive());
+      dto.setFinishedDecisionInstanceCount(current.getFinishedDecisionInstanceCount());
+      dto.setCleanableDecisionInstanceCount(current.getCleanableDecisionInstanceCount());
+      dtos.add(dto);
+    }
+    return dtos;
   }
-
 }

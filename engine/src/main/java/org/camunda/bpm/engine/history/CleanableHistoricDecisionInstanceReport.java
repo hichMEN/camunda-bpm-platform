@@ -13,23 +13,13 @@
 
 package org.camunda.bpm.engine.history;
 
+import java.util.List;
+
 /**
- * This interface defines the result of Historic finished process instance report.
+ * Defines a report query for finished decision instances.
  *
  */
-public interface HistoricFinishedProcessInstanceReportResult {
+public interface CleanableHistoricDecisionInstanceReport {
 
-  String getProcessDefinitionId();
-
-  String getProcessDefinitionKey();
-
-  String getProcessDefinitionName();
-
-  int getProcessDefinitionVersion();
-
-  Integer getHistoryTimeToLive();
-
-  long getFinishedProcessInstanceCount();
-
-  long getCleanableProcessInstanceCount();
+  List<CleanableHistoricDecisionInstanceReportResult> list();
 }

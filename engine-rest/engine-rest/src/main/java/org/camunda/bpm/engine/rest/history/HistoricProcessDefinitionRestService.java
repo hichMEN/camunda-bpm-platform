@@ -13,7 +13,7 @@
 package org.camunda.bpm.engine.rest.history;
 
 import org.camunda.bpm.engine.rest.dto.history.HistoricActivityStatisticsDto;
-import org.camunda.bpm.engine.rest.dto.history.HistoricFinishedProcessInstanceReportDto;
+import org.camunda.bpm.engine.rest.dto.history.CleanableHistoricProcessInstanceReportDto;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -41,5 +41,5 @@ public interface HistoricProcessDefinitionRestService {
   @GET
   @Path("/finished-process-instance-report")
   @Produces(MediaType.APPLICATION_JSON)
-  public List<HistoricFinishedProcessInstanceReportDto> getHistoricFinishedProcessInstanceReport();
+  public List<CleanableHistoricProcessInstanceReportDto> getHistoricFinishedProcessInstanceReport();
 }

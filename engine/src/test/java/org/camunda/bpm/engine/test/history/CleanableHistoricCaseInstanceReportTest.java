@@ -26,7 +26,7 @@ import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.history.HistoricCaseInstance;
-import org.camunda.bpm.engine.history.HistoricFinishedCaseInstanceReportResult;
+import org.camunda.bpm.engine.history.CleanableHistoricCaseInstanceReportResult;
 import org.camunda.bpm.engine.impl.util.ClockUtil;
 import org.camunda.bpm.engine.repository.CaseDefinition;
 import org.camunda.bpm.engine.runtime.CaseInstance;
@@ -41,7 +41,7 @@ import org.junit.Test;
 import org.junit.rules.RuleChain;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-public class HistoricFinishedCaseInstanceReportTest {
+public class CleanableHistoricCaseInstanceReportTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
@@ -103,7 +103,7 @@ public class HistoricFinishedCaseInstanceReportTest {
     ClockUtil.setCurrentTime(oldCurrentTime);
   }
 
-  private void checkResultNumbers(HistoricFinishedCaseInstanceReportResult result, int expectedCleanable, int expectedFinished) {
+  private void checkResultNumbers(CleanableHistoricCaseInstanceReportResult result, int expectedCleanable, int expectedFinished) {
     assertEquals(expectedCleanable, result.getCleanableCaseInstanceCount());
     assertEquals(expectedFinished, result.getFinishedCaseInstanceCount());
   }
@@ -114,7 +114,7 @@ public class HistoricFinishedCaseInstanceReportTest {
     prepareCaseInstances(CASE_DEFINITION_KEY, -6, 5, 10);
 
     // when
-    List<HistoricFinishedCaseInstanceReportResult> reportResults = historyService.createHistoricFinishedCaseInstanceReport().list();
+    List<CleanableHistoricCaseInstanceReportResult> reportResults = historyService.createCleanableHistoricCaseInstanceReport().list();
 
     // then
     assertEquals(1, reportResults.size());
@@ -128,7 +128,7 @@ public class HistoricFinishedCaseInstanceReportTest {
     prepareCaseInstances(CASE_DEFINITION_KEY, 0, 5, 5);
 
     // when
-    List<HistoricFinishedCaseInstanceReportResult> reportResults = historyService.createHistoricFinishedCaseInstanceReport().list();
+    List<CleanableHistoricCaseInstanceReportResult> reportResults = historyService.createCleanableHistoricCaseInstanceReport().list();
 
     // then
     assertEquals(1, reportResults.size());
@@ -142,7 +142,7 @@ public class HistoricFinishedCaseInstanceReportTest {
     prepareCaseInstances(CASE_DEFINITION_KEY, 0, 0, 5);
 
     // when
-    List<HistoricFinishedCaseInstanceReportResult> reportResults = historyService.createHistoricFinishedCaseInstanceReport().list();
+    List<CleanableHistoricCaseInstanceReportResult> reportResults = historyService.createCleanableHistoricCaseInstanceReport().list();
 
     // then
     assertEquals(1, reportResults.size());
@@ -156,7 +156,7 @@ public class HistoricFinishedCaseInstanceReportTest {
     prepareCaseInstances(CASE_DEFINITION_KEY, 0, null, 5);
 
     // when
-    List<HistoricFinishedCaseInstanceReportResult> reportResults = historyService.createHistoricFinishedCaseInstanceReport().list();
+    List<CleanableHistoricCaseInstanceReportResult> reportResults = historyService.createCleanableHistoricCaseInstanceReport().list();
 
     // then
     assertEquals(1, reportResults.size());
@@ -174,11 +174,11 @@ public class HistoricFinishedCaseInstanceReportTest {
     prepareCaseInstances("oneTaskCase", -6, 5, 10);
 
     // when
-    List<HistoricFinishedCaseInstanceReportResult> reportResults = historyService.createHistoricFinishedCaseInstanceReport().list();
+    List<CleanableHistoricCaseInstanceReportResult> reportResults = historyService.createCleanableHistoricCaseInstanceReport().list();
 
     // then
     assertEquals(4, reportResults.size());
-    for (HistoricFinishedCaseInstanceReportResult result : reportResults) {
+    for (CleanableHistoricCaseInstanceReportResult result : reportResults) {
       if (result.getCaseDefinitionKey().equals(CASE_DEFINITION_KEY)) {
         checkResultNumbers(result, 10, 20);
       } else if (result.getCaseDefinitionKey().equals("oneCaseTaskCase")) {

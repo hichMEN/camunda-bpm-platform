@@ -18,9 +18,9 @@ import java.util.List;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.history.HistoricCaseActivityStatistics;
-import org.camunda.bpm.engine.history.HistoricFinishedCaseInstanceReportResult;
+import org.camunda.bpm.engine.history.CleanableHistoricCaseInstanceReportResult;
 import org.camunda.bpm.engine.rest.dto.history.HistoricCaseActivityStatisticsDto;
-import org.camunda.bpm.engine.rest.dto.history.HistoricFinishedCaseInstanceReportDto;
+import org.camunda.bpm.engine.rest.dto.history.CleanableHistoricCaseInstanceReportDto;
 import org.camunda.bpm.engine.rest.history.HistoricCaseDefinitionRestService;
 
 /**
@@ -49,10 +49,10 @@ public class HistoricCaseDefinitionRestServiceImpl implements HistoricCaseDefini
   }
 
   @Override
-  public List<HistoricFinishedCaseInstanceReportDto> getHistoricFinishedCaseInstanceReport() {
+  public List<CleanableHistoricCaseInstanceReportDto> getHistoricFinishedCaseInstanceReport() {
     HistoryService historyService = processEngine.getHistoryService();
 
-    List<HistoricFinishedCaseInstanceReportResult> reportResult = historyService.createHistoricFinishedCaseInstanceReport().list();
-    return HistoricFinishedCaseInstanceReportDto.convert(reportResult);
+    List<CleanableHistoricCaseInstanceReportResult> reportResult = historyService.createCleanableHistoricCaseInstanceReport().list();
+    return CleanableHistoricCaseInstanceReportDto.convert(reportResult);
   }
 }

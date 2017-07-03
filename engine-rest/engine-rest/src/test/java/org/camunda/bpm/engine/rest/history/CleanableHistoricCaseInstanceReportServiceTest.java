@@ -24,8 +24,8 @@ import java.util.List;
 import javax.ws.rs.core.Response.Status;
 
 import org.camunda.bpm.engine.AuthorizationException;
-import org.camunda.bpm.engine.history.HistoricFinishedCaseInstanceReport;
-import org.camunda.bpm.engine.history.HistoricFinishedCaseInstanceReportResult;
+import org.camunda.bpm.engine.history.CleanableHistoricCaseInstanceReport;
+import org.camunda.bpm.engine.history.CleanableHistoricCaseInstanceReportResult;
 import org.camunda.bpm.engine.rest.AbstractRestServiceTest;
 import org.camunda.bpm.engine.rest.util.container.TestContainerRule;
 import org.junit.Before;
@@ -36,7 +36,7 @@ import org.mockito.Mockito;
 
 import com.jayway.restassured.http.ContentType;
 
-public class HistoricFinishedCaseInstanceReportServiceTest extends AbstractRestServiceTest {
+public class CleanableHistoricCaseInstanceReportServiceTest extends AbstractRestServiceTest {
 
   @ClassRule
   public static TestContainerRule rule = new TestContainerRule();
@@ -44,7 +44,7 @@ public class HistoricFinishedCaseInstanceReportServiceTest extends AbstractRestS
   protected static final String HISTORY_URL = TEST_RESOURCE_ROOT_PATH + "/history";
   protected static final String HISTORIC_REPORT_URL = HISTORY_URL + "/case-definition/finished-case-instance-report";
 
-  private HistoricFinishedCaseInstanceReport historicFinishedCaseInstanceReport;
+  private CleanableHistoricCaseInstanceReport historicFinishedCaseInstanceReport;
 
   @Before
   public void setUpRuntimeData() {
@@ -52,7 +52,7 @@ public class HistoricFinishedCaseInstanceReportServiceTest extends AbstractRestS
   }
 
   private void setupHistoryReportMock() {
-    HistoricFinishedCaseInstanceReportResult reportResult = mock(HistoricFinishedCaseInstanceReportResult.class);
+    CleanableHistoricCaseInstanceReportResult reportResult = mock(CleanableHistoricCaseInstanceReportResult.class);
 
     when(reportResult.getCaseDefinitionId()).thenReturn("anId");
     when(reportResult.getCaseDefinitionKey()).thenReturn("aKey");
@@ -62,7 +62,7 @@ public class HistoricFinishedCaseInstanceReportServiceTest extends AbstractRestS
     when(reportResult.getFinishedCaseInstanceCount()).thenReturn(10l);
     when(reportResult.getCleanableCaseInstanceCount()).thenReturn(5l);
 
-    HistoricFinishedCaseInstanceReportResult anotherReportResult = mock(HistoricFinishedCaseInstanceReportResult.class);
+    CleanableHistoricCaseInstanceReportResult anotherReportResult = mock(CleanableHistoricCaseInstanceReportResult.class);
 
     when(anotherReportResult.getCaseDefinitionId()).thenReturn("pdId");
     when(anotherReportResult.getCaseDefinitionKey()).thenReturn("pdKey");
@@ -72,12 +72,12 @@ public class HistoricFinishedCaseInstanceReportServiceTest extends AbstractRestS
     when(anotherReportResult.getFinishedCaseInstanceCount()).thenReturn(13l);
     when(anotherReportResult.getCleanableCaseInstanceCount()).thenReturn(0l);
 
-    List<HistoricFinishedCaseInstanceReportResult> mocks = new ArrayList<HistoricFinishedCaseInstanceReportResult>();
+    List<CleanableHistoricCaseInstanceReportResult> mocks = new ArrayList<CleanableHistoricCaseInstanceReportResult>();
     mocks.add(reportResult);
     mocks.add(anotherReportResult);
 
-    historicFinishedCaseInstanceReport = mock(HistoricFinishedCaseInstanceReport.class);
-    when(processEngine.getHistoryService().createHistoricFinishedCaseInstanceReport()).thenReturn(historicFinishedCaseInstanceReport);
+    historicFinishedCaseInstanceReport = mock(CleanableHistoricCaseInstanceReport.class);
+    when(processEngine.getHistoryService().createCleanableHistoricCaseInstanceReport()).thenReturn(historicFinishedCaseInstanceReport);
     when(historicFinishedCaseInstanceReport.list()).thenReturn(mocks);
   }
 

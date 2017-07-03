@@ -15,27 +15,26 @@ package org.camunda.bpm.engine.impl;
 
 import java.util.List;
 
-import org.camunda.bpm.engine.history.HistoricFinishedCaseInstanceReport;
-import org.camunda.bpm.engine.history.HistoricFinishedCaseInstanceReportResult;
+import org.camunda.bpm.engine.history.CleanableHistoricDecisionInstanceReport;
+import org.camunda.bpm.engine.history.CleanableHistoricDecisionInstanceReportResult;
 import org.camunda.bpm.engine.impl.interceptor.Command;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 
-public class HistoricFinishedCaseInstanceReportImpl implements HistoricFinishedCaseInstanceReport {
+public class CleanableHistoricDecisionInstanceReportImpl implements CleanableHistoricDecisionInstanceReport {
 
   protected CommandExecutor commandExecutor;
 
-  public HistoricFinishedCaseInstanceReportImpl(CommandExecutor commandExecutor) {
+  public CleanableHistoricDecisionInstanceReportImpl(CommandExecutor commandExecutor) {
     this.commandExecutor = commandExecutor;
   }
 
   @Override
-  public List<HistoricFinishedCaseInstanceReportResult> list() {
-
-    return commandExecutor.execute(new Command<List<HistoricFinishedCaseInstanceReportResult>>() {
+  public List<CleanableHistoricDecisionInstanceReportResult> list() {
+    return commandExecutor.execute(new Command<List<CleanableHistoricDecisionInstanceReportResult>>() {
       @Override
-      public List<HistoricFinishedCaseInstanceReportResult> execute(CommandContext commandContext) {
-        return commandContext.getHistoricCaseInstanceManager().findHistoricFinishedCaseInstanceReportResults();
+      public List<CleanableHistoricDecisionInstanceReportResult> execute(CommandContext commandContext) {
+        return commandContext.getHistoricDecisionInstanceManager().findFinishedDecisionInstancesReportResults();
       }
     });
   }

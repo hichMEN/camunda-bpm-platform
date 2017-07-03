@@ -14,8 +14,8 @@
 package org.camunda.bpm.engine.rest.history;
 
 import org.camunda.bpm.engine.AuthorizationException;
-import org.camunda.bpm.engine.history.HistoricFinishedDecisionInstanceReport;
-import org.camunda.bpm.engine.history.HistoricFinishedDecisionInstanceReportResult;
+import org.camunda.bpm.engine.history.CleanableHistoricDecisionInstanceReport;
+import org.camunda.bpm.engine.history.CleanableHistoricDecisionInstanceReportResult;
 import org.camunda.bpm.engine.rest.AbstractRestServiceTest;
 import org.camunda.bpm.engine.rest.util.container.TestContainerRule;
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class HistoricFinishedDecisionInstanceReportServiceTest extends AbstractR
   protected static final String HISTORY_URL = TEST_RESOURCE_ROOT_PATH + "/history";
   protected static final String HISTORIC_REPORT_URL = HISTORY_URL + "/decision-definition/finished-decision-instance-report";
 
-  private HistoricFinishedDecisionInstanceReport historicFinishedDecisionInstanceReport;
+  private CleanableHistoricDecisionInstanceReport historicFinishedDecisionInstanceReport;
 
   @Before
   public void setUpRuntimeData() {
@@ -52,7 +52,7 @@ public class HistoricFinishedDecisionInstanceReportServiceTest extends AbstractR
   }
 
   private void setupHistoryReportMock() {
-    HistoricFinishedDecisionInstanceReportResult reportResult = mock(HistoricFinishedDecisionInstanceReportResult.class);
+    CleanableHistoricDecisionInstanceReportResult reportResult = mock(CleanableHistoricDecisionInstanceReportResult.class);
 
     when(reportResult.getDecisionDefinitionId()).thenReturn("anId");
     when(reportResult.getDecisionDefinitionKey()).thenReturn("aKey");
@@ -62,7 +62,7 @@ public class HistoricFinishedDecisionInstanceReportServiceTest extends AbstractR
     when(reportResult.getFinishedDecisionInstanceCount()).thenReturn(1000l);
     when(reportResult.getCleanableDecisionInstanceCount()).thenReturn(567l);
 
-    HistoricFinishedDecisionInstanceReportResult anotherReportResult = mock(HistoricFinishedDecisionInstanceReportResult.class);
+    CleanableHistoricDecisionInstanceReportResult anotherReportResult = mock(CleanableHistoricDecisionInstanceReportResult.class);
 
     when(anotherReportResult.getDecisionDefinitionId()).thenReturn("dpId");
     when(anotherReportResult.getDecisionDefinitionKey()).thenReturn("dpKey");
@@ -72,12 +72,12 @@ public class HistoricFinishedDecisionInstanceReportServiceTest extends AbstractR
     when(anotherReportResult.getFinishedDecisionInstanceCount()).thenReturn(10l);
     when(reportResult.getCleanableDecisionInstanceCount()).thenReturn(0l);
 
-    List<HistoricFinishedDecisionInstanceReportResult> mocks = new ArrayList<HistoricFinishedDecisionInstanceReportResult>();
+    List<CleanableHistoricDecisionInstanceReportResult> mocks = new ArrayList<CleanableHistoricDecisionInstanceReportResult>();
     mocks.add(reportResult);
     mocks.add(anotherReportResult);
 
-    historicFinishedDecisionInstanceReport = mock(HistoricFinishedDecisionInstanceReport.class);
-    when(processEngine.getHistoryService().createHistoricFinishedDecisionInstanceReport()).thenReturn(historicFinishedDecisionInstanceReport);
+    historicFinishedDecisionInstanceReport = mock(CleanableHistoricDecisionInstanceReport.class);
+    when(processEngine.getHistoryService().createCleanableHistoricDecisionInstanceReport()).thenReturn(historicFinishedDecisionInstanceReport);
     when(historicFinishedDecisionInstanceReport.list()).thenReturn(mocks);
   }
 

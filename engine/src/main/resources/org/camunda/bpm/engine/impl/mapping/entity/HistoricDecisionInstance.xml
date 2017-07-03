@@ -4,7 +4,7 @@
 
 <mapper namespace="org.camunda.bpm.engine.impl.history.event.HistoricDecisionInstanceEntity">
 
-  <resultMap id="finishedReportResultMap" type="org.camunda.bpm.engine.impl.persistence.entity.HistoricFinishedDecisionInstanceReportResultEntity">
+  <resultMap id="finishedReportResultMap" type="org.camunda.bpm.engine.impl.persistence.entity.CleanableHistoricDecisionInstanceReportResultEntity">
     <result property="cleanableDecisionInstanceCount" column="CLEANABLE_" jdbcType="BIGINT" />
     <result property="finishedDecisionInstanceCount" column="FINISHED_" jdbcType="BIGINT" />
     <result property="decisionDefinitionId" column="ID_" jdbcType="VARCHAR" />

@@ -17,8 +17,8 @@ import java.util.List;
 
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.history.HistoricFinishedDecisionInstanceReportResult;
-import org.camunda.bpm.engine.rest.dto.history.HistoricFinishedDecisionInstanceReportDto;
+import org.camunda.bpm.engine.history.CleanableHistoricDecisionInstanceReportResult;
+import org.camunda.bpm.engine.rest.dto.history.CleanableHistoricDecisionInstanceReportDto;
 import org.camunda.bpm.engine.rest.history.HistoricDecisionDefinitionRestService;
 
 public class HistoricDecisionDefinitionRestServiceImpl implements HistoricDecisionDefinitionRestService {
@@ -30,11 +30,11 @@ public class HistoricDecisionDefinitionRestServiceImpl implements HistoricDecisi
   }
 
   @Override
-  public List<HistoricFinishedDecisionInstanceReportDto> getHistoricFinishedDecisionInstanceReport() {
+  public List<CleanableHistoricDecisionInstanceReportDto> getHistoricFinishedDecisionInstanceReport() {
     HistoryService historyService = processEngine.getHistoryService();
 
-    List<HistoricFinishedDecisionInstanceReportResult> reportResult = historyService.createHistoricFinishedDecisionInstanceReport().list();
-    return HistoricFinishedDecisionInstanceReportDto.convert(reportResult);
+    List<CleanableHistoricDecisionInstanceReportResult> reportResult = historyService.createCleanableHistoricDecisionInstanceReport().list();
+    return CleanableHistoricDecisionInstanceReportDto.convert(reportResult);
   }
 
 }

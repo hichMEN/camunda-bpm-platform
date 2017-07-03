@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.camunda.bpm.engine.history.HistoricCaseInstance;
-import org.camunda.bpm.engine.history.HistoricFinishedCaseInstanceReportResult;
+import org.camunda.bpm.engine.history.CleanableHistoricCaseInstanceReportResult;
 import org.camunda.bpm.engine.impl.HistoricCaseInstanceQueryImpl;
 import org.camunda.bpm.engine.impl.Page;
 import org.camunda.bpm.engine.impl.db.ListQueryParameterObject;
@@ -126,11 +126,11 @@ public class HistoricCaseInstanceManager extends AbstractHistoricManager {
   }
 
   @SuppressWarnings("unchecked")
-  public List<HistoricFinishedCaseInstanceReportResult> findHistoricFinishedCaseInstanceReportResults() {
+  public List<CleanableHistoricCaseInstanceReportResult> findHistoricFinishedCaseInstanceReportResults() {
     ListQueryParameterObject parameterObject = new ListQueryParameterObject();
     parameterObject.setParameter(ClockUtil.getCurrentTime());
     getTenantManager().configureQuery(parameterObject);
-    return (List<HistoricFinishedCaseInstanceReportResult>) getDbEntityManager().selectList("selectFinishedCaseInstancesReportEntities", parameterObject);
+    return (List<CleanableHistoricCaseInstanceReportResult>) getDbEntityManager().selectList("selectFinishedCaseInstancesReportEntities", parameterObject);
   }
 
 }

@@ -20,7 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.camunda.bpm.engine.rest.dto.history.HistoricFinishedDecisionInstanceReportDto;
+import org.camunda.bpm.engine.rest.dto.history.CleanableHistoricDecisionInstanceReportDto;
 
 @Path(HistoricDecisionDefinitionRestService.PATH)
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,6 +31,6 @@ public interface HistoricDecisionDefinitionRestService {
   @GET
   @Path("/finished-decision-instance-report")
   @Produces(MediaType.APPLICATION_JSON)
-  public List<HistoricFinishedDecisionInstanceReportDto> getHistoricFinishedDecisionInstanceReport();
+  public List<CleanableHistoricDecisionInstanceReportDto> getHistoricFinishedDecisionInstanceReport();
 
 }

@@ -18,7 +18,7 @@
 
 <mapper namespace="org.camunda.bpm.engine.impl.persistence.entity.HistoricCaseInstanceEntity">
 
-  <resultMap id="finishedReportResultMap" type="org.camunda.bpm.engine.impl.persistence.entity.HistoricFinishedCaseInstanceReportResultEntity">
+  <resultMap id="finishedReportResultMap" type="org.camunda.bpm.engine.impl.persistence.entity.CleanableHistoricCaseInstanceReportResultEntity">
     <result property="cleanableCaseInstanceCount" column="CLEANABLE_" jdbcType="BIGINT" />
     <result property="finishedCaseInstanceCount" column="FINISHED_" jdbcType="BIGINT" />
     <result property="caseDefinitionId" column="ID_" jdbcType="VARCHAR" />
